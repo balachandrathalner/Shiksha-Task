@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testsuite failures="1" name="cucumber.runtime.formatter.JUnitFormatter" skipped="0" tests="3" time="1512.123059">
+<testcase classname="Applicaltion Validation" name="Verify loading of documentation page" time="229.809879">
+<system-out><![CDATA[Given URL is lunched........................................................passed
+When compare the title actual with expected.................................passed
+Then validations are "true".................................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Applicaltion Validation" name="Verify status code of the documentation page" time="28.969913">
+<system-out><![CDATA[Given Tester is on documentation page.......................................passed
+When Verify status code of documentation page having URL "https://developer.here.com/documentation".passed
+Then validation are as per expected "true"..................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Applicaltion Validation" name="Verify all internal links in documentation page" time="1253.343267">
+<failure message="org.openqa.selenium.TimeoutException: timeout&#10;  (Session info: chrome=79.0.3945.88)&#10;Build info: version: '3.8.1', revision: '6e95a6684b', time: '2017-12-01T18:33:54.468Z'&#10;System info: host: 'BALU', ip: '172.18.123.5', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_231'&#10;Driver info: org.openqa.selenium.chrome.ChromeDriver&#10;Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 79.0.3945.88, chrome: {chromedriverVersion: 79.0.3945.36 (3582db32b3389..., userDataDir: C:\Users\Talaneru\AppData\L...}, goog:chromeOptions: {debuggerAddress: localhost:61033}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}&#10;Session ID: 57c759b2c06a3fc056988c3bc9db791a&#13;&#10;&#9;at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)&#13;&#10;&#9;at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)&#13;&#10;&#9;at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)&#13;&#10;&#9;at java.lang.reflect.Constructor.newInstance(Constructor.java:423)&#13;&#10;&#9;at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)&#13;&#10;&#9;at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)&#13;&#10;&#9;at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)&#13;&#10;&#9;at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:164)&#13;&#10;&#9;at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)&#13;&#10;&#9;at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:601)&#13;&#10;&#9;at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325)&#13;&#10;&#9;at stepDefinations.stepDefination.click_on_each_links_it_navigate_appropriate_page_and_check_status_code(stepDefination.java:161)&#13;&#10;&#9;at ✽.When click on each links it navigate appropriate page and check status code(Login.feature:22)&#13;&#10;"><![CDATA[Given documention page containing links.....................................passed
+When click on each links it navigate appropriate page and check status code.failed
+Then validation as per expected "true"......................................skipped
+Then Iterate all documention section link one by one........................skipped
+And close the driver instance...............................................skipped
+
+StackTrace:
+org.openqa.selenium.TimeoutException: timeout
+  (Session info: chrome=79.0.3945.88)
+Build info: version: '3.8.1', revision: '6e95a6684b', time: '2017-12-01T18:33:54.468Z'
+System info: host: 'BALU', ip: '172.18.123.5', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_231'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 79.0.3945.88, chrome: {chromedriverVersion: 79.0.3945.36 (3582db32b3389..., userDataDir: C:\Users\Talaneru\AppData\L...}, goog:chromeOptions: {debuggerAddress: localhost:61033}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify}
+Session ID: 57c759b2c06a3fc056988c3bc9db791a
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:164)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:601)
+	at org.openqa.selenium.remote.RemoteWebDriver.get(RemoteWebDriver.java:325)
+	at stepDefinations.stepDefination.click_on_each_links_it_navigate_appropriate_page_and_check_status_code(stepDefination.java:161)
+	at ✽.When click on each links it navigate appropriate page and check status code(Login.feature:22)
+]]></failure>
+</testcase>
+</testsuite>
