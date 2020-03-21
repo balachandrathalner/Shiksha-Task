@@ -13,6 +13,7 @@ import java.util.Set;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -26,8 +27,6 @@ import resource.base;
 public class stepDefination extends base {
 
 	String pageurl;
-
-	List<String> links;
 
 	ArrayList<String> hit = new ArrayList<String>();
 
@@ -48,7 +47,7 @@ public class stepDefination extends base {
 		// Write code here that turns the phrase above into concrete actions
 
 		String title = driver.getTitle();
-		System.out.println(title);
+		System.out.println("Title of page :" + title);
 		assertEquals("Documentation, Code Examples and API References - HERE Developer", title);
 
 	}
@@ -99,7 +98,13 @@ public class stepDefination extends base {
 	public void documention_page_containing_links() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
 
-		System.out.println("links count in documentaion page  :" + driver.findElements(By.tagName("a")).size());
+		// get the documention menu using xpath
+		WebElement docDriver = driver.findElement(By.xpath("(//ul[@class='menu menu--primary']/li[2]/div/div/div)[1]"));
+
+		// Collect all links from documentation sub-menu
+		List<WebElement> links = docDriver.findElements(By.tagName("a"));
+
+		System.out.println("Total Links on Documentaion page menu :" + links.size());
 
 	}
 
@@ -107,20 +112,79 @@ public class stepDefination extends base {
 	public void click_on_each_links_it_navigate_appropriate_page_and_check_status_code() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
 
-		// driver.get("https://developer.here.com/documentation");
+		WebDriverWait wait = new WebDriverWait(driver, 300);
 
-		List<WebElement> links = driver.findElements(By.tagName("a"));
+		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
+				By.xpath("//div[@class='right-side']//span[@data-title='Documentation']")));
 
-		for (int i = 1; i < links.size(); i++) {
+		System.out.println("Tile Of Documentation page :" + driver.getTitle());
 
-			WebDriverWait wait = new WebDriverWait(driver, 100);
+		// Creating action class for mouse/keybord interation
+		Actions a = new Actions(driver);
 
-			if (links.get(i).getAttribute("href").contains("javascript")) {
-				wait.until(ExpectedConditions.elementToBeClickable((By.tagName("a"))));
-				;
+		// path of documention
+		WebElement document = driver
+				.findElement(By.xpath("//div[@class='right-side']//span[@data-title='Documentation']"));
 
+		// get the documention menu using xpath
+		WebElement docDriver = driver.findElement(By.xpath("(//ul[@class='menu menu--primary']/li[2]/div/div/div)[1]"));
+
+		// hover on documentation menu
+		a.moveToElement(document).build().perform();
+
+		// Collect all links from documentation sub-menu
+		List<WebElement> links = docDriver.findElements(By.tagName("a"));
+
+		// Total links
+		System.out.println("Total Links :" + links.size());
+
+		System.out.println("=============Links & Response=============");
+
+		String pageURL = null;
+		int count = 1;
+		int icount = 0;
+		int eCount = 0;
+		// loop through anchor elements and get corresponding href (links)
+		for (WebElement s : links) {
+
+			System.out.println(count + ")");
+
+			// invoke function to click on a link
+
+			if (s.getAttribute("href").startsWith("https://developer.here.com/documentation")) {
+				System.out.println("Link Type :Internal Link(Navigate to same page)");
+
+				icount++;
+
+				// Get link
+				pageURL = s.getAttribute("href");
+				System.out.println("Link =>" + pageURL);
+
+				// clicking on link
+				a.moveToElement(s).click().perform();
+
+				// get title
+				System.out.println("Title: " + driver.getTitle());
+
+			}
+
+			// To manage the links that navigate to different page
+
+			else if ((s.getAttribute("href").startsWith("https://developer.here.com/"))
+					&& (!s.getAttribute("href").contains("https://developer.here.com/documentation"))) {
+
+				icount++;
+
+				System.out.println("Link Type :Internal Link(Navigate to different page)");
+
+				// Get link
+				pageURL = s.getAttribute("href");
+				System.out.println("Link =>" + pageURL);
+
+				// for clicking
 				String tab = Keys.chord(Keys.CONTROL, Keys.ENTER);
-				driver.findElement(By.tagName("a")).sendKeys(tab);
+
+				s.sendKeys(tab);
 
 				Thread.sleep(5000);
 
@@ -131,42 +195,66 @@ public class stepDefination extends base {
 
 				while (it.hasNext()) {
 
-					String s = it.next();
-					driver.switchTo().window(s);
-					String windowURL = driver.getCurrentUrl();
+					String sw = it.next();
+					driver.switchTo().window(sw);
 
-					hit.add(windowURL);
+					// get title
+					System.out.println("Title: " + driver.getTitle());
+
 					driver.close();
-
 				}
+
+				// navigate back(documentation)
 				driver.switchTo().window(parentid);
 
+				a.moveToElement(document).build().perform();
+
 			}
 
-			else {
-				hit.add(links.get(i).getAttribute("href"));
+			else if (!s.getAttribute("href").startsWith("https://developer.here.com/")) {
+				System.out.println("---------External Link----------");
+
+				eCount++;
+
+				// link type
+				System.out.println("Link Type :External Link");
+
+				// Get link
+				pageURL = s.getAttribute("href");
+				System.out.println("Link =>" + pageURL);
+
+				String tab = Keys.chord(Keys.CONTROL, Keys.ENTER);
+
+				s.sendKeys(tab);
+
+				Thread.sleep(5000);
+
+				Set<String> id = driver.getWindowHandles();
+
+				Iterator<String> it = id.iterator();
+				String parentid = it.next();
+
+				while (it.hasNext()) {
+
+					String sw = it.next();
+					driver.switchTo().window(sw);
+
+					// get title
+					System.out.println("Title: " + driver.getTitle());
+
+					driver.close();
+				}
+
+				// navigate back(documentation)
+				driver.switchTo().window(parentid);
+
+				a.moveToElement(document).build().perform();
+
 			}
-
-		}
-
-		int count = 1;
-
-		for (String url_links : hit) {
-
-			System.out.println(count + ")");
-
-			System.out.println("Link========>" + url_links);
-
-			// To check URL
-			driver.get(url_links);
-
-			Thread.sleep(3000);
-
-			System.out.println("Link Navigation page Title :" + driver.getTitle());
 
 			// To Check the response
 
-			URL url = new URL(url_links);
+			URL url = new URL(pageURL);
 
 			// Create a connection using URL object (i.e., link)
 			HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
@@ -188,11 +276,15 @@ public class stepDefination extends base {
 				System.out.println("Link Response is Not 200 :" + " - " + httpConn.getResponseMessage());
 			}
 
-			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-			System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-
 			count++;
-		}
+
+			System.out.println("============================================");
+			System.out.println("============================================");
+
+		} // end of loop
+
+		System.out.println("Total Internal Links :" + icount);
+		System.out.println("Total external Links :" + eCount);
 
 	}
 
@@ -201,20 +293,6 @@ public class stepDefination extends base {
 		// Write code here that turns the phrase above into concrete actions
 
 		System.out.println("validation_as_per_expected :" + arg1);
-
-	}
-
-	@Then("^Iterate all documention section link one by one$")
-	public void iterate_all_documention_section_link_one_by_one() throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-
-		System.out.println("=======List of documentation section links=====");
-
-		for (String url_links : hit) {
-
-			System.out.println("Link========>" + url_links);
-
-		}
 
 	}
 

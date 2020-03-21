@@ -21,7 +21,6 @@ Scenario: Verify all internal links in documentation page
 	Given documention page containing links 
 	When click on each links it navigate appropriate page and check status code 
 	Then validation as per expected "true" 
-	Then Iterate all documention section link one by one 
 	And close the driver instance 
 	
 	
